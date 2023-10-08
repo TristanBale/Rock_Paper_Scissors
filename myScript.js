@@ -8,7 +8,8 @@
     // 3a. make sure our input is not case sensitive, we can address this by toLowercase() all our inputs so it matches those in our fixed choices
 // 4. once myChoice is not empty, reveal comChoice
 // 5. evaluate the results, if it is a draw, repeat steps 1 to 4
-// 6. if not a draw, reveal winner and loser 
+// 6. if not a draw, reveal winner and loser
+    // 6a. how to determine the winner? 
 
 // 1a.
 const choices = ["rock", "paper", "scissors"];
@@ -38,8 +39,46 @@ function getComputerChoice() {
     return comChoice;
 }
 
-getComputerChoice();
+function playRound(playerSelection, computerSelection) {
+    //playerSelection = playerSelection.toString();
+    playerSelection = playerSelection.toLowerCase();
 
-console.log(choices);
-console.log(comChoice);
-console.log(getComputerChoice());
+        if (playerSelection !== 'rock' && playerSelection !== 'paper' && playerSelection !== 'scissors') {
+            return 'Please choose a selection from the following: rock, paper or scissors.'
+        }
+        else if (playerSelection == computerSelection) { 
+            return `You both chose ${playerSelection}, it's a draw! Try again!`
+        }
+        else if (playerSelection == 'rock') {
+            if (computerSelection == 'paper') {
+                return 'You Lose! Paper beats Rock'
+            }
+            else {
+                return 'You Win! Rock beats Scissors'
+            }
+        }
+        else if (playerSelection == 'paper') {
+            if (computerSelection == 'scissors') {
+                return 'You Lose! Scissors beats Paper'
+            }
+            else {
+                return 'You Win! Paper beats Rock'
+            }
+        }
+        else {                      //player selection here would have to be scissors alr
+            if (computerSelection == 'Rock') {
+                return 'You Lose! Rock beats Scissors'
+            }
+            else {
+                return 'You Win! Scissors beats Paper'
+            }
+        }
+}
+
+let playerSelection = 'rock';
+let computerSelection = getComputerChoice();
+console.log('Your selection is ' + playerSelection);
+console.log('The Computer chose ' + computerSelection);
+console.log(playRound(playerSelection, computerSelection));
+
+
