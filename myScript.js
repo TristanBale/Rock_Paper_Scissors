@@ -88,6 +88,7 @@ function playRound(playerSelection) {
 // after each round, determine outcome and update score, if draw, no score is updated. increase round counter by 1
 // after all rounds, determine winner by seeing who has the higher score
 function game(numberOfRounds) {
+    // this just plays the numner of rounds, draws are allowed. it is not a "best of" match
     let myScore = 0;
     let aiScore = 0;
     let currentRound = 1;
