@@ -68,7 +68,7 @@ function playRound(playerSelection) {
             }
         }
         else {                      //player selection here would have to be scissors alr
-            if (computerSelection == 'Rock') {
+            if (computerSelection == 'rock') {
                 return 'You Lose! Rock beats Scissors'
             }
             else {
@@ -96,7 +96,7 @@ function game(numberOfRounds) {
         let playerSelection = prompt("Please input one selection from the following: Rock, Paper or scissors");
         //playerSelection = playerSelection.toLowerCase();
         console.log('');
-        console.log('ROund ' + currentRound);
+        console.log('Round ' + currentRound);
         console.log(playerSelection)
         let result = playRound2(playerSelection);
         console.log('The result is ' + '\" ' + result + '\"');
@@ -140,7 +140,7 @@ function game(numberOfRounds) {
     }
 }
 
-
+// this fuction of playRound just has extra condition to not fail when a null is outputed when user cancels the prompt box
 function playRound2(playerSelection) {
     if (playerSelection !== null) {
         playerSelection = playerSelection.toLowerCase();
@@ -173,8 +173,8 @@ function playRound2(playerSelection) {
                 return 'You Win! Paper beats Rock'
             }
         }
-        else {                      //player selection here would have to be scissors alr
-            if (computerSelection == 'Rock') {
+        else if (playerSelection == 'scissors') {                      //player selection here would have to be scissors alr
+            if (computerSelection == 'rock') {
                 return 'You Lose! Rock beats Scissors'
             }
             else {
