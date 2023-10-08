@@ -39,9 +39,11 @@ function getComputerChoice() {
     return comChoice;
 }
 
-function playRound(playerSelection, computerSelection) {
-    //playerSelection = playerSelection.toString();
+function playRound(playerSelection) {
     playerSelection = playerSelection.toLowerCase();
+    computerSelection = getComputerChoice();
+    //console.log(playerSelection);
+    console.log('The Computer chose ' + computerSelection);
 
         if (playerSelection !== 'rock' && playerSelection !== 'paper' && playerSelection !== 'scissors') {
             return 'Please choose a selection from the following: rock, paper or scissors.'
@@ -75,10 +77,108 @@ function playRound(playerSelection, computerSelection) {
         }
 }
 
-let playerSelection = 'rock';
-let computerSelection = getComputerChoice();
-console.log('Your selection is ' + playerSelection);
-console.log('The Computer chose ' + computerSelection);
-console.log(playRound(playerSelection, computerSelection));
+//let playerSelection = 'Paper';
+//console.log('Your selection is ' + playerSelection);
+//console.log(playRound(playerSelection));
+//console.log('break')
 
 
+// making this without loops first as we have not learnt loops in JS???
+// run game the number of times that is inputted
+// after each round, determine outcome and update score, if draw, no score is updated. increase round counter by 1
+// after all rounds, determine winner by seeing who has the higher score
+function game(numberOfRounds) {
+    let myScore = 0;
+    let aiScore = 0;
+    let currentRound = 1;
+
+    while (currentRound <= numberOfRounds) {
+        let playerSelection = prompt("Please input one selection from the following: Rock, Paper or scissors");
+        //playerSelection = playerSelection.toLowerCase();
+        console.log('');
+        console.log('ROund ' + currentRound);
+        console.log(playerSelection)
+        let result = playRound2(playerSelection);
+        console.log('The result is ' + '\" ' + result + '\"');
+
+        if (result == `You both chose ${playerSelection}, it's a draw! Try again!`) {
+            console.log(`You both chose ${playerSelection}, it's a draw! Try again!`);
+            console.log('');
+            currentRound++;
+        
+        }
+        else if (result == 'You Lose! Paper beats Rock' || result == 'You Lose! Scissors beats Paper' || result == 'You Lose! Rock beats Scissors') {
+            aiScore += 1;
+            console.log('Computer wins this round');
+            console.log('');
+            currentRound++;
+        }
+        else if (result == 'You Win! Rock beats Scissors' || result == 'You Win! Paper beats Rock' || result == 'You Win! Scissors beats Paper') {
+            myScore += 1;   
+            console.log('You win this round');
+            console.log('');
+            currentRound++;
+        }
+        else if (playerSelection == null) {
+            break;
+        }
+        else {
+            //console.log('Please choose a selection from the following: rock, paper or scissors.');
+            currentRound = currentRound;
+        }
+    }
+    console.log('');
+    console.log('My score is ' + myScore);
+    console.log('The computer\'s score is ' + aiScore);
+
+    if (myScore == aiScore) {
+        return 'It is a draw'
+    } else if (myScore < aiScore) {
+        return 'The Computer wins'
+    } else {
+        return 'You win!'
+    }
+}
+
+
+function playRound2(playerSelection) {
+    if (playerSelection !== null) {
+        playerSelection = playerSelection.toLowerCase();
+        computerSelection = getComputerChoice();
+    } else {
+        playerSelection = 'null'
+    }
+    //console.log(playerSelection);
+    console.log('The Computer chose ' + computerSelection);
+
+        if (playerSelection !== 'rock' && playerSelection !== 'paper' && playerSelection !== 'scissors') {
+            return 'Please choose a selection from the following: rock, paper or scissors.'
+        }
+        else if (playerSelection == computerSelection) { 
+            return `You both chose ${playerSelection}, it's a draw! Try again!`
+        }
+        else if (playerSelection == 'rock') {
+            if (computerSelection == 'paper') {
+                return 'You Lose! Paper beats Rock'
+            }
+            else {
+                return 'You Win! Rock beats Scissors'
+            }
+        }
+        else if (playerSelection == 'paper') {
+            if (computerSelection == 'scissors') {
+                return 'You Lose! Scissors beats Paper'
+            }
+            else {
+                return 'You Win! Paper beats Rock'
+            }
+        }
+        else {                      //player selection here would have to be scissors alr
+            if (computerSelection == 'Rock') {
+                return 'You Lose! Rock beats Scissors'
+            }
+            else {
+                return 'You Win! Scissors beats Paper'
+            }
+        }
+}
