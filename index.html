@@ -8,7 +8,36 @@
 </head>
 
 <body>
+    <button class="rockBtn"> Rock </button>
+    <button class="paperBtn"> Paper </button>
+    <button class="scissorsBtn"> Scissors </button>
+    <div class="resultBox">
+
+    </div>
+
     <script>
+        const rockBtn = document.querySelector('.rockBtn');
+        const paperBtn = document.querySelector('.paperBtn');
+        const scissorsBtn = document.querySelector('.scissorsBtn');
+
+        rockBtn.addEventListener('click', () => {
+            let text = rockBtn.innerText;
+            let result = playRound2(text);
+            console.log(result);
+        });
+
+        paperBtn.addEventListener('click', () => {
+            let text = paperBtn.innerText;
+            let result = playRound2(text);
+            console.log(result);
+        });
+
+        scissorsBtn.addEventListener('click', () => {
+            let text = scissorsBtn.innerText;
+            let result = playRound2(text);
+            console.log(result);
+        });
+        
     </script>
 </body>
 
