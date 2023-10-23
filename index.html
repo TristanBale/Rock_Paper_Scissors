@@ -11,36 +11,114 @@
     <button class="rockBtn"> Rock </button>
     <button class="paperBtn"> Paper </button>
     <button class="scissorsBtn"> Scissors </button>
-    <div class="resultBox" style="margin-top: 20px;">
-        
-    </div>
+    <div class="resultBox" style="margin-top: 20px;"></div>
+    <p class="myScore"> Your score is: </p>
+    <p class="aiScore"> The AI score is: </p>
+    <div class="drawNotice" style="margin: 5px 0px; font-size: large; color: blue;"> </div>
+    <div class="matchOutcome" style="font-size: large; font-weight: 700; background-color: yellow; padding: 5px; border: 2px solid black; width: 190px; height: 35px; box-sizing: border-box; text-align: center;"> winner is ...</div>
+    <button class="resetBtn" style="border: 1px solid black; margin-top: 10px;"> Play again </button>
 
     <script>
         const rockBtn = document.querySelector('.rockBtn');
         const paperBtn = document.querySelector('.paperBtn');
         const scissorsBtn = document.querySelector('.scissorsBtn');
         const resultBox = document.querySelector('.resultBox');
+        const myScore = document.querySelector('.myScore');
+        const aiScore = document.querySelector('.aiScore');
+        let myScoreValue = 0;
+        let aiScoreValue = 0;
+        const drawNotice = document.querySelector('.drawNotice');
+        const matchOutcome = document.querySelector('.matchOutcome');
+        let numberOfWinsNeeded = 3;
+        const resetBtn = document.querySelector('.resetBtn');
+
+        myScore.innerText = myScoreValue;
+        aiScore.innerText = aiScoreValue;
 
         rockBtn.addEventListener('click', () => {
             let text = rockBtn.innerText;
             let result = playRound2(text);
-            console.log(result);
             resultBox.innerText = `${result}`;
+            scoreTracker();
+            isThereWinner();
         });
 
         paperBtn.addEventListener('click', () => {
             let text = paperBtn.innerText;
             let result = playRound2(text);
-            console.log(result);
             resultBox.innerText = `${result}`;
+            scoreTracker();
+            isThereWinner();
         });
 
         scissorsBtn.addEventListener('click', () => {
             let text = scissorsBtn.innerText;
             let result = playRound2(text);
-            console.log(result);
             resultBox.innerText = `${result}`;
+            scoreTracker();
+            isThereWinner();
         });
+
+        function scoreTracker() {
+            drawNotice.innerText = '';
+            if (myScoreValue === numberOfWinsNeeded) {
+                matchOutcome.innerText = 'You win!';
+            } else if (aiScoreValue === numberOfWinsNeeded) {
+                matchOutcome.innerText = 'The computer wins!';
+            } else if (resultBox.innerText == 'You both chose rock, it\'s a draw! Try again!' || resultBox.innerText == 'You both chose paper, it\'s a draw! Try again!' || resultBox.innerText == 'You both chose scissors, it\'s a draw! Try again!' ) {
+                drawNotice.innerText = 'draw';
+            } else switch(resultBox.innerText) {
+                case 'You Lose! Paper beats Rock':
+                    aiScoreValue += 1;
+                    aiScore.innerText = aiScoreValue;
+                    drawNotice.innerHTML = '<span style="color: red;"> You Lose </span>';
+                    break;
+                case 'You Lose! Scissors beats Paper':
+                    aiScoreValue += 1;
+                    aiScore.innerText = aiScoreValue;
+                    drawNotice.innerHTML = '<span style="color: red;"> You Lose </span>';
+                    break;
+                case 'You Lose! Rock beats Scissors':
+                    aiScoreValue += 1;
+                    aiScore.innerText = aiScoreValue;
+                    drawNotice.innerHTML = '<span style="color: red;"> You Lose </span>';
+                    break;
+                case 'You Win! Rock beats Scissors':
+                    myScoreValue += 1;
+                    myScore.innerText = myScoreValue;
+                    drawNotice.innerHTML = '<span style="color: green;"> You Win </span>';
+                    break;
+                case 'You Win! Paper beats Rock':
+                    myScoreValue += 1;
+                    myScore.innerText = myScoreValue;
+                    drawNotice.innerHTML = '<span style="color: green;"> You Win </span>';
+                    break;
+                case 'You Win! Scissors beats Paper':
+                    myScoreValue += 1;
+                    myScore.innerText = myScoreValue;
+                    drawNotice.innerHTML = '<span style="color: green;"> You Win </span>';
+                    break;
+            }
+        }
+
+        function isThereWinner() {
+            if (myScoreValue === numberOfWinsNeeded) {
+                matchOutcome.innerText = 'You win!';
+                drawNotice.innerHTML = '<span style="color: green;"> You Win </span>';
+            } else if (aiScoreValue === numberOfWinsNeeded) {
+                matchOutcome.innerText = 'The computer wins!';
+                drawNotice.innerHTML = '<span style="color: red;"> You Lose </span>';
+            } 
+        }
+
+        resetBtn.addEventListener('click', () => {
+            myScoreValue = 0;
+            aiScoreValue = 0;
+            myScore.innerText = myScoreValue;
+            aiScore.innerText = aiScoreValue;
+            matchOutcome.innerText = 'winner is...';
+            drawNotice.innerText = '';
+        })
 
     </script>
 </body>
